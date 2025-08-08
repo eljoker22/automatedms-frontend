@@ -44,9 +44,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       // console.log('email user =>', paymentData.data.customer.email);
       // console.log('user id =>', userId);
       // console.log('plan offer =>', paymentData.data.items[0].offer.id);
-
+      
       if (!userId) {
-        console.error('Supabase update error: user not found');
+        console.error('Supabase update error: user not found found');
         return res.status(500).json({ error: 'User not found' });
       }
 
