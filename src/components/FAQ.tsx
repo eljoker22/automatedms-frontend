@@ -7,27 +7,27 @@ const FAQ: React.FC = () => {
   const faqs = [
     {
       question: 'What is AutomateDms?',
-      answer: 'AutomateDms is a comprehensive business intelligence platform that helps companies centralize their data, create insightful dashboards, and make data-driven decisions. We combine powerful analytics with an intuitive interface to make business intelligence accessible to everyone.'
+      answer: 'AutomatedMS.io is a powerful software tool that allows you to send automated Instagram Direct Messages (DMs) from your Windows or macOS device.'
     },
     {
-      question: 'How do I get started?',
-      answer: 'Getting started is easy! Simply sign up for a free trial, connect your data sources, and start building your first dashboard. Our onboarding team will guide you through the setup process and help you get the most out of the platform.'
+      question: 'How does the software work?',
+      answer: 'Once installed, the software connects to your Instagram account and allows you to schedule and send bulk DMs to your target audience, followers, or new leads—all automatically.'
     },
     {
-      question: 'Is there a free trial available?',
-      answer: 'Yes! We offer a 14-day free trial for all our plans. No credit card required. During your trial, you\'ll have access to all features and can test the platform with your own data.'
+      question: 'Are there monthly and yearly plans available?',
+      answer: 'Yes! We offer flexible monthly and yearly subscription plans. You can choose the one that best suits your needs.'
     },
     {
       question: 'How do I cancel my subscription?',
       answer: 'You can cancel your subscription at any time through your account settings. There are no cancellation fees, and you\'ll retain access to your data until the end of your billing period.'
     },
     {
-      question: 'What integrations are available?',
-      answer: 'AutomateDms integrates with 200+ popular business tools including Salesforce, HubSpot, Google Analytics, Shopify, Stripe, and many more. We also provide APIs for custom integrations and can work with you to connect any data source.'
+      question: 'Do you offer refunds?',
+      answer: 'We offer refunds on annual plans if canceled within 14 days. Monthly subscriptions are non-refundable once charged. See our Refund Policy'
     },
     {
       question: 'Can I use my multiple devices?',
-      answer: 'Absolutely! AutomateDms is fully responsive and works seamlessly across desktop, tablet, and mobile devices. Your dashboards and data are accessible anywhere, anytime.'
+      answer: 'Absolutely! AutomateDms is fully responsive and works seamlessly across desktop, windows and Mac devices. Your dashboards and data are accessible anywhere, anytime.'
     }
   ];
 
@@ -87,7 +87,9 @@ const FAQ: React.FC = () => {
             Still have questions? We're here to help.
           </p>
           <button className="text-[#5B51D8] hover:text-[#5B51D8]/80 font-semibold">
-            Contact Support →
+            <a target='_blank' href='https://t.me/+_5EgHjz1iC1lNGQ0'>
+              Contact Support →
+            </a>
           </button>
         </div>
       </div>
