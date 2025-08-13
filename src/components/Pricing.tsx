@@ -1,11 +1,14 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Check, Zap, Crown } from 'lucide-react';
+import { supabase } from '../../supabaseClient.ts'; // <-- Import supabase client
 
 interface PricingProps {
   onAuthClick: (mode: 'signin' | 'signup') => void;
 }
 
 const Pricing: React.FC<PricingProps> = ({ onAuthClick }) => {
+  const [user, setUser] = useState<any>(null); // <-- track logged-in user
+  
   const plans = [
     {
       name: 'Starter',
@@ -23,6 +26,7 @@ const Pricing: React.FC<PricingProps> = ({ onAuthClick }) => {
         'Data export (CSV)',
         '24/7 Support'
       ],
+      url: 'https://ko-software.app.fungies.io/checkout-element/502abc4f-a137-4098-bc5e-54d4a74d91f9',
       popular: false
     },
     {
@@ -41,9 +45,42 @@ const Pricing: React.FC<PricingProps> = ({ onAuthClick }) => {
         'Data export (CSV)',
         '24/7 Support'
       ],
+      url: 'https://ko-software.app.fungies.io/checkout-element/69ab11fb-76f4-492a-85c7-a9656262c10f',
       popular: true
     }
   ];
+
+  // 🔐 Fetch session on mount
+  useEffect(() => {
+    const getUser = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      setUser(session?.user ?? null);
+    };
+    getUser();
+
+    // 🎧 Subscribe to auth changes
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => {
+      listener?.subscription.unsubscribe();
+    };
+  }, []);
+
+
+  useEffect(() => {
+    // Check if script is already loaded
+    if (!document.querySelector("script[src='https://cdn.jsdelivr.net/npm/@fungies/fungies-js@0.0.6']")) {
+      const script = document.createElement("script");
+      script.src = "https://cdn.jsdelivr.net/npm/@fungies/fungies-js@0.0.6";
+      script.defer = true;
+      script.setAttribute("data-auto-init", "");
+      document.body.appendChild(script);
+    }
+  }, []);
 
   return (
     <section id="pricing" className="py-24 bg-[#02010d]">
@@ -106,12 +143,24 @@ const Pricing: React.FC<PricingProps> = ({ onAuthClick }) => {
                   ))}
                 </ul>
 
+
+              {user ? (
                 <button
-                  onClick={() => onAuthClick('signup')}
-                  className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-200 bg-gradient-to-r from-[#5B51D8] to-[#5B51D8]/80 hover:from-[#5B51D8]/90 hover:to-[#5B51D8]/70 text-white`}
-                >
+                    data-fungies-checkout-url={plan.url}
+                    data-fungies-mode="overlay"
+                    className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-200 bg-gradient-to-r from-[#5B51D8] to-[#5B51D8]/80 hover:from-[#5B51D8]/90 hover:to-[#5B51D8]/70 text-white`}
+
+                  >
                   Get Started
                 </button>
+              ) : (
+                <button
+                    className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-200 bg-gradient-to-r from-[#5B51D8] to-[#5B51D8]/80 hover:from-[#5B51D8]/90 hover:to-[#5B51D8]/70 text-white`}
+                    onClick={() => onAuthClick('signin')}
+                  >
+                  Get Started
+                </button>
+              )}
               </div>
             );
           })}
