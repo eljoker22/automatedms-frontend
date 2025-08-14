@@ -1,17 +1,9 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Check, Zap, Crown } from 'lucide-react';
 import { supabase } from '../../supabaseClient.ts'; // <-- Import supabase client
 
 interface PricingProps {
   onAuthClick: (mode: 'signin' | 'signup') => void;
-}
-
-declare global {
-  interface Window {
-    FungiesCheckout?: {
-      init: () => void;
-    };
-  }
 }
 
 const Pricing: React.FC<PricingProps> = ({ onAuthClick }) => {
@@ -34,7 +26,7 @@ const Pricing: React.FC<PricingProps> = ({ onAuthClick }) => {
         'Data export (CSV)',
         '24/7 Support'
       ],
-      url: 'https://ko-software.app.fungies.io/checkout-element/502abc4f-a137-4098-bc5e-54d4a74d91f9',
+      url: 'https://ko-software.app.fungies.io/subscribe/fdef6d19-4092-4043-9daf-a15c5001ac89',
       popular: false
     },
     {
@@ -53,7 +45,7 @@ const Pricing: React.FC<PricingProps> = ({ onAuthClick }) => {
         'Data export (CSV)',
         '24/7 Support'
       ],
-      url: 'https://ko-software.app.fungies.io/checkout-element/69ab11fb-76f4-492a-85c7-a9656262c10f',
+      url: 'https://ko-software.app.fungies.io/subscribe/5ef8dd97-c5ca-4272-8a47-6d908e85e1eb',
       popular: true
     }
   ];
@@ -79,29 +71,6 @@ const Pricing: React.FC<PricingProps> = ({ onAuthClick }) => {
   }, []);
 
 
-  const scriptLoaded = useRef(false);
-
-  useEffect(() => {
-    // Only load the script once
-    if (!scriptLoaded.current) {
-      const script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/@fungies/fungies-js@0.0.6';
-      script.defer = true;
-      script.setAttribute('data-auto-init', 'false'); // prevent auto-init
-      script.onload = () => {
-        if (window.FungiesCheckout) {
-          window.FungiesCheckout.init(); // initialize manually
-        }
-      };
-      document.body.appendChild(script);
-      scriptLoaded.current = true;
-    } else {
-      // Already loaded, just re-init
-      if (window.FungiesCheckout) {
-        window.FungiesCheckout.init();
-      }
-    }
-  }, []);
 
 
   return (
@@ -167,14 +136,14 @@ const Pricing: React.FC<PricingProps> = ({ onAuthClick }) => {
 
 
               {user ? (
+                <a href={plan.url}>
                 <button
-                    data-fungies-checkout-url={plan.url}
-                    data-fungies-mode="overlay"
                     className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-200 bg-gradient-to-r from-[#5B51D8] to-[#5B51D8]/80 hover:from-[#5B51D8]/90 hover:to-[#5B51D8]/70 text-white`}
 
                   >
                   Get Started
                 </button>
+                </a>
               ) : (
                 <button
                     className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-200 bg-gradient-to-r from-[#5B51D8] to-[#5B51D8]/80 hover:from-[#5B51D8]/90 hover:to-[#5B51D8]/70 text-white`}
