@@ -1,9 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import { Check, Zap, Crown } from 'lucide-react';
 import { supabase } from '../../supabaseClient.ts'; // <-- Import supabase client
 
 interface PricingProps {
   onAuthClick: (mode: 'signin' | 'signup') => void;
+}
+
+declare global {
+  interface Window {
+    FungiesCheckout?: {
+      init: () => void;
+    };
+  }
 }
 
 const Pricing: React.FC<PricingProps> = ({ onAuthClick }) => {
@@ -71,16 +79,30 @@ const Pricing: React.FC<PricingProps> = ({ onAuthClick }) => {
   }, []);
 
 
+  const scriptLoaded = useRef(false);
+
   useEffect(() => {
-    // Check if script is already loaded
-    if (!document.querySelector("script[src='https://cdn.jsdelivr.net/npm/@fungies/fungies-js@0.0.6']")) {
-      const script = document.createElement("script");
-      script.src = "https://cdn.jsdelivr.net/npm/@fungies/fungies-js@0.0.6";
+    // Only load the script once
+    if (!scriptLoaded.current) {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/@fungies/fungies-js@0.0.6';
       script.defer = true;
-      script.setAttribute("data-auto-init", "");
+      script.setAttribute('data-auto-init', 'false'); // prevent auto-init
+      script.onload = () => {
+        if (window.FungiesCheckout) {
+          window.FungiesCheckout.init(); // initialize manually
+        }
+      };
       document.body.appendChild(script);
+      scriptLoaded.current = true;
+    } else {
+      // Already loaded, just re-init
+      if (window.FungiesCheckout) {
+        window.FungiesCheckout.init();
+      }
     }
   }, []);
+
 
   return (
     <section id="pricing" className="py-24 bg-[#02010d]">
