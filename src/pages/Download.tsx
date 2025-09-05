@@ -9,18 +9,17 @@ import {
 import Header from '../components/Header.tsx';
 
 function DownloadPage() {
-  const [selectedOS, setSelectedOS] = useState('Windows (64-bit)');
+  const [selectedOS, setSelectedOS] = useState('Windows');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const osOptions = [
-    'Windows (64-bit)',
-    'Windows (32-bit)',
+    'Windows',
     'macOS'
   ];
 
   const devices = [
-    { icon: Monitor, name: 'Windows' },
-    { icon: Apple, name: 'macOS' }
+    { icon: Monitor, name: 'Windows', url: 'https://drive.google.com/uc?export=download&id=1Qr6kcswKO5DFFMPlpf_veMdLqFMwSfn-' },
+    { icon: Apple, name: 'macOS', url: '' }
   ];
 
   const handleAuthClick = (mode: 'signin' | 'signup') => {
@@ -63,7 +62,7 @@ function DownloadPage() {
             </p>
 
             {/* Download Section */}
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4 mb-16">
+            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4 mb-4">
                 {/* OS Selector */}
                 <div className="relative">
                 <button
@@ -95,11 +94,20 @@ function DownloadPage() {
                 </div>
 
                 {/* Download Button */}
-                <button onClick={() => alert('download')} className="bg-gradient-to-r from-[#5B51D8] to-[#7C3AED] text-white px-8 py-3 rounded-lg font-semibold hover:from-[#6B61E8] hover:to-[#8B4AF8] transition-all duration-200 transform hover:scale-105 shadow-lg flex items-center space-x-2">
-                <Download className="w-5 h-5" />
-                <span>Download</span>
-                </button>
+                {devices.map((dev) =>
+                dev.name === selectedOS && (
+                    <a key={dev.name} href={dev.url}>
+                    <button className="bg-gradient-to-r from-[#5B51D8] to-[#7C3AED] text-white px-8 py-3 rounded-lg font-semibold hover:from-[#6B61E8] hover:to-[#8B4AF8] transition-all duration-200 transform hover:scale-105 shadow-lg flex items-center space-x-2">
+                        <Download className="w-5 h-5" />
+                        <span>Download</span>
+                    </button>
+                    </a>
+                )
+                )}
+
             </div>
+
+            {selectedOS === 'macOS' && <p className='font-semibold text-lg mb-16'>Comeing soon on Mac!</p>}
 
             {/* Central Icon */}
             <div className="flex justify-center mb-16">

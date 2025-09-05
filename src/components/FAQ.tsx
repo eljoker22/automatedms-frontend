@@ -27,7 +27,7 @@ const FAQ: React.FC = () => {
     },
     {
       question: 'Can I use my multiple devices?',
-      answer: 'Absolutely! AutomateDms is fully responsive and works seamlessly across desktop, windows and Mac devices. Your dashboards and data are accessible anywhere, anytime.'
+      answer: 'Absolutely! AutomateDms is fully responsive and works seamlessly across desktop, windows and Mac devices.'
     }
   ];
 

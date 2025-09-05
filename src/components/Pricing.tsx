@@ -11,7 +11,7 @@ const Pricing: React.FC<PricingProps> = ({ onAuthClick }) => {
   
   const plans = [
     {
-      name: 'Starter',
+      name: 'Monthly',
       price: '$25',
       period: 'per month',
       description: 'Perfect for small teams and startups',
@@ -30,7 +30,7 @@ const Pricing: React.FC<PricingProps> = ({ onAuthClick }) => {
       popular: false
     },
     {
-      name: 'Professional',
+      name: 'Yearly',
       price: '$250',
       period: 'per year',
       description: 'Advanced features for growing businesses',
