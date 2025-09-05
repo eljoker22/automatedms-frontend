@@ -37,6 +37,7 @@ function DownloadPage() {
 
         <Header onAuthClick={handleAuthClick} />
         {/* Main Content */}
+        
         <main className="relative z-10 px-6 mt-10 py-12">
             <div className="max-w-4xl mx-auto text-center">
             {/* Download Badge */}
