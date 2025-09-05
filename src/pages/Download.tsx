@@ -18,7 +18,7 @@ function DownloadPage() {
   ];
 
   const devices = [
-    { icon: Monitor, name: 'Windows', url: 'https://drive.google.com/uc?export=download&id=1Qr6kcswKO5DFFMPlpf_veMdLqFMwSfn-' },
+    { icon: Monitor, name: 'Windows', url: 'AutomateDms.zip' },
     { icon: Apple, name: 'macOS', url: '' }
   ];
 
@@ -37,7 +37,7 @@ function DownloadPage() {
 
         <Header onAuthClick={handleAuthClick} />
         {/* Main Content */}
-        
+
         <main className="relative z-10 px-6 mt-10 py-12">
             <div className="max-w-4xl mx-auto text-center">
             {/* Download Badge */}
@@ -97,7 +97,7 @@ function DownloadPage() {
                 {/* Download Button */}
                 {devices.map((dev) =>
                 dev.name === selectedOS && (
-                    <a key={dev.name} href={dev.url}>
+                    <a key={dev.name} href={`files/${dev.url}`} download={dev.url}>
                     <button className="bg-gradient-to-r from-[#5B51D8] to-[#7C3AED] text-white px-8 py-3 rounded-lg font-semibold hover:from-[#6B61E8] hover:to-[#8B4AF8] transition-all duration-200 transform hover:scale-105 shadow-lg flex items-center space-x-2">
                         <Download className="w-5 h-5" />
                         <span>Download</span>
